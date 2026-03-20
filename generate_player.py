@@ -76,15 +76,16 @@ HTML_TEMPLATE = """\
     position: fixed; bottom: 15px; left: 30px;
     font-size: 12px; color: #222;
   }}
+  .hud-hidden .hud {{ display: none; }}
 </style>
 </head>
 <body>
 <div id="subtitle-area"><div id="subtitle-text"></div></div>
-<div id="timer">00:00:00</div>
-<div id="status">PAUSED</div>
-<div id="progress"></div>
-<div id="counter"></div>
-<div id="help">Space=play/pause &nbsp; ←→=prev/next &nbsp; PageUp/Down=clicker &nbsp; F=fullscreen</div>
+<div id="timer" class="hud">00:00:00</div>
+<div id="status" class="hud">PAUSED</div>
+<div id="progress" class="hud"></div>
+<div id="counter" class="hud"></div>
+<div id="help" class="hud">Space=play/pause &nbsp; ←→=prev/next &nbsp; PageUp/Down=clicker &nbsp; F=fullscreen &nbsp; H=hide UI</div>
 <script>
 const subtitles = {subs_json};
 
@@ -154,6 +155,9 @@ document.addEventListener('keydown', e => {{
     case 'ArrowLeft': case 'PageUp': case 'KeyP': e.preventDefault(); goTo(currentIndex <= 0 ? 0 : currentIndex - 1); break;
     case 'KeyF': e.preventDefault();
       document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen();
+      break;
+    case 'KeyH': e.preventDefault();
+      document.body.classList.toggle('hud-hidden');
       break;
   }}
 }});
